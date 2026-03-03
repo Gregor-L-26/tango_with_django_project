@@ -162,9 +162,9 @@ def user_logout(request):
     return redirect(reverse('rango:index'))
 
 def visitor_cookie_handler(request):
-    visits = int(request.COOKIES.get('visits', '1'))
+    visits = int(get_server_side_cookie(request, 'visits', '1'))
 
-    last_visit_cookie = request.COOKIES.get('last_visit', str(datetime.now()))
+    last_visit_cookie = get_server_side_cookie(request, 'last_visit', str(datetime.now()))
     last_visit_time = datetime.strptime(last_visit_cookie[:-7], '%Y-%m-%d %H:%M:%S')
 
     if (datetime.now() - last_visit_time).days > 0:
