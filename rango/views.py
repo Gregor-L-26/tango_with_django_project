@@ -31,11 +31,12 @@ def index(request):
 
 
 def about(request):
-    context_dict = {'boldmessage': 'This tutorial has been put together by Gregor'}
+    visitor_cookie_handler(request)
+    visits = request.session.get('visits', 0)
+    context_dict = {}
+    context_dict['visits'] = visits
+    context_dict['boldmessage'] = 'This tutorial has been put together by Gregor'
 
-    if request.session.test_cookie_worked():
-        print("TEST COOKIE WORKED!")
-        request.session.delete_test_cookie()
 
     return render(request, 'rango/about.html', context=context_dict)
 
