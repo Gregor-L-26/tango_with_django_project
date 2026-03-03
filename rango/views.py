@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 def index(request):
@@ -144,3 +145,8 @@ def user_login(request):
 @login_required
 def restricted(request):
     return HttpResponse("Since you're logged in, you can see this text!")
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('rango:index'))
